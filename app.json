@@ -3,17 +3,28 @@
     "name": "Lokal Music Player",
     "slug": "lokal-music-player",
     "version": "1.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "sdkVersion": "50.0.0",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "com.lokal.musicplayer"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "311d3fe9-8d0a-4ffb-a81e-3472828d9a50"
+      }
     }
   }
 }

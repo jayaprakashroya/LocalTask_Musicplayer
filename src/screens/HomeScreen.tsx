@@ -12,7 +12,7 @@ type HomeNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeNavigationProp>();
-  const [query, setQuery] = useState('arijit');
+  const [query, setQuery] = useState('');
   const [songs, setSongs] = useState<Song[]>([]);
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
@@ -55,7 +55,7 @@ export default function HomeScreen() {
       <Text style={styles.title}>Search songs</Text>
       <View style={styles.searchRow}>
         <TextInput
-          placeholder="Search JioSaavn…"
+          placeholder="Search songs..."
           placeholderTextColor="#94A3B8"
           value={query}
           onChangeText={setQuery}
