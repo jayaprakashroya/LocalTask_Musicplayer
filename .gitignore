@@ -13,3 +13,4 @@ expo-debug.log*
 **/yarn-debug.log*
 **/expo-debug.log*
 *.log
+android

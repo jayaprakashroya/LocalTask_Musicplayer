@@ -42,21 +42,25 @@ export default function MiniPlayer() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
+    left: 12,
+    right: 12,
+    bottom: 12,
     backgroundColor: '#020617',
-    borderTopWidth: 1,
-    borderTopColor: '#334155',
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: '#334155',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
-    gap: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
   },
   cover: {
-    width: 50,
-    height: 50,
-    borderRadius: 12,
+    width: 56,
+    height: 56,
+    borderRadius: 16,
   },
   info: {
     flex: 1,
@@ -83,7 +87,13 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   controlButton: {
-    paddingHorizontal: 10,
+    width: 46,
+    height: 46,
+    borderRadius: 16,
+    backgroundColor: '#111827',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 12,
   },
   controlText: {
     color: '#38BDF8',
@@ -92,5 +102,8 @@ const styles = StyleSheet.create({
   timeText: {
     color: '#94A3B8',
     fontSize: 12,
+    width: 42,
+    textAlign: 'right',
+    marginLeft: 12,
   },
 });

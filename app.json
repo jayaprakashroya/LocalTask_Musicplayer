@@ -8,7 +8,6 @@
       "android",
       "web"
     ],
-    "sdkVersion": "50.0.0",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
