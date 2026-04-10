@@ -20,6 +20,9 @@
     "android": {
       "package": "com.lokal.musicplayer"
     },
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
     "extra": {
       "eas": {
         "projectId": "311d3fe9-8d0a-4ffb-a81e-3472828d9a50"
