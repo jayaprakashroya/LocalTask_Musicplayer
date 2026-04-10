@@ -63,23 +63,28 @@ async function loadSound(track: Song, set: any, getStore: () => any) {
     return;
   }
 
+  // Stop and unload the previous sound completely
   if (soundInstance) {
     try {
+      soundInstance.setOnPlaybackStatusUpdate(null);
+      await soundInstance.stopAsync();
       await soundInstance.unloadAsync();
-    } catch {
-      // ignore unload failures
+    } catch (error) {
+      // ignore cleanup failures
+      console.warn('Error cleaning up previous sound:', error);
     }
-    soundInstance.setOnPlaybackStatusUpdate(null);
     soundInstance = null;
   }
 
+  // Create and load the new sound without auto-playing
   soundInstance = new Audio.Sound();
   await soundInstance.loadAsync(
     { uri: source },
-    { shouldPlay: true, progressUpdateIntervalMillis: 500 },
+    { progressUpdateIntervalMillis: 500 },
     false
   );
 
+  // Set up the status update handler
   soundInstance.setOnPlaybackStatusUpdate((status) => {
     if (!status) {
       return;
@@ -104,6 +109,7 @@ async function loadSound(track: Song, set: any, getStore: () => any) {
     }
   });
 
+  // Now play the sound
   await soundInstance.playAsync();
   set({ isLoading: false, isPlaying: true });
 }
@@ -148,10 +154,15 @@ const usePlayerStore = create<PlayerState>()(
             await soundInstance.pauseAsync();
             set({ isPlaying: false });
           } else {
-            await soundInstance.playAsync();
-            set({ isPlaying: true });
+            // Check if sound is still loaded before playing
+            const status = await soundInstance.getStatusAsync();
+            if (status.isLoaded) {
+              await soundInstance.playAsync();
+              set({ isPlaying: true });
+            }
           }
-        } catch {
+        } catch (error) {
+          console.error('togglePlayPause error:', error);
           set({ isPlaying: false });
         }
       },
@@ -165,7 +176,14 @@ const usePlayerStore = create<PlayerState>()(
         if (!currentTrack) return;
         const nextIndex = getNextIndex(queue, currentTrack.id, shuffle, repeat);
         if (nextIndex < 0) {
-          await soundInstance?.stopAsync();
+          // Stop playback
+          if (soundInstance) {
+            try {
+              await soundInstance.stopAsync();
+            } catch {
+              // ignore stop failures
+            }
+          }
           set({ isPlaying: false });
           return;
         }
